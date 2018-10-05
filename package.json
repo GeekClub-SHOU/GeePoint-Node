@@ -1,0 +1,54 @@
+{
+  "name": "GeePoint",
+  "description": "GeePoint By GeeStack Inc.",
+  "version": "1.0.0",
+  "author": "corleoneyang <corleoneyang@geestack.com>",
+  "scripts": {
+    "start": "node development.js",
+    "compile": "npm run lint && tsc",
+    "lint": "tslint \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "@types/cheerio": "^0.22.9",
+    "@types/superagent": "^3.8.4",
+    "@types/superagent-prefix": "^0.0.1",
+    "cheerio": "^1.0.0-rc.2",
+    "superagent": "^4.0.0-beta.5",
+    "superagent-prefix": "^0.0.2",
+    "think-cache": "^1.0.7",
+    "think-cache-file": "^1.0.8",
+    "think-model": "^1.1.5",
+    "think-model-mysql": "^1.0.0",
+    "think-session": "^1.0.3",
+    "think-session-file": "^1.0.5",
+    "think-view": "^1.0.11",
+    "think-view-nunjucks": "^1.0.1",
+    "thinkjs": "^3.2.3"
+  },
+  "devDependencies": {
+    "@types/koa": "*",
+    "node-notifier": "^5.0.2",
+    "think-inspect": "0.0.2",
+    "think-typescript": "^1.0.4",
+    "think-watcher": "^3.0.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.5.3"
+  },
+  "repository": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "readmeFilename": "README.md",
+  "thinkjs": {
+    "metadata": {
+      "name": "GeePoint",
+      "description": "GeePoint By GeeStack Inc.",
+      "author": "corleoneyang <corleoneyang@geestack.com>"
+    },
+    "projectName": "GeePoint",
+    "template": "typescript",
+    "clone": false,
+    "isMultiModule": false
+  }
+}

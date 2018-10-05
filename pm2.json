@@ -1,0 +1,15 @@
+{
+  "apps": [{
+    "name": "GeePoint",
+    "script": "production.js",
+    "cwd": "/Users/corleoneyang/Projects/GeePoint",
+    "exec_mode": "fork",
+    "max_memory_restart": "1G",
+    "autorestart": true,
+    "node_args": [],
+    "args": [],
+    "env": {
+      
+    }
+  }]
+}
