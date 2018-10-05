@@ -7,7 +7,8 @@ export default class extends CrawlerBase {
     async indexAction() {
         try {
             const urpCrawler = new URPCrawler();
-            await urpCrawler.login(this.username, this.password);
+            urpCrawler.cookie = this.crawlerCookie;
+
             /**
              * 查询所有课程属性成绩
              */

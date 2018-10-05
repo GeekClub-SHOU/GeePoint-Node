@@ -9,10 +9,13 @@
     "lint": "tslint \"src/**/*.ts\""
   },
   "dependencies": {
+    "@koa/cors": "2",
     "@types/cheerio": "^0.22.9",
+    "@types/kcors": "^2.2.3",
     "@types/superagent": "^3.8.4",
     "@types/superagent-prefix": "^0.0.1",
     "cheerio": "^1.0.0-rc.2",
+    "kcors": "^2.2.2",
     "superagent": "^4.0.0-beta.5",
     "superagent-prefix": "^0.0.2",
     "think-cache": "^1.0.7",

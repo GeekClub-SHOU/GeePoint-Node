@@ -7,9 +7,7 @@ export default class extends CrawlerBase {
     async indexAction() {
         try {
             const urpCrawler = new URPCrawler();
-            await urpCrawler.login(this.username, this.password);
-            // const response =
-            //     await urpCrawler.request('/student/integratedQuery/instructionPlanQuery/detail/index', 'GET');
+            urpCrawler.cookie = this.crawlerCookie;
 
             /**
              * 查看本学期课表
@@ -50,8 +48,8 @@ export default class extends CrawlerBase {
 
                     // 遍历所有成绩，查看是否课程号匹配，如果匹配则返回成绩信息，不匹配则为 null
                     let courseGradeInfo = null;
-                    allSemesterScoreResponse.forEach((allSemesterScoreResponseItem, index, array) => {
-                        allSemesterScoreResponseItem.cjList.forEach((cj) => {
+                    for (const allSemesterScoreResponseItem of allSemesterScoreResponse) {
+                        for (const cj of allSemesterScoreResponseItem.cjList) {
                             if (cj.id.courseNumber === courseNumber) {
                                 courseGradeInfo = {
                                     gradeScore: cj.cj,
@@ -61,10 +59,23 @@ export default class extends CrawlerBase {
                                     notByReasonName: cj.notByReasonName, // 未通过原因
                                 };
                             }
-                        });
-                    });
+                            // Following is for debug:
+                            // if (coureSequenceNumber === '01') {
+                            //     courseGradeInfo = {
+                            //         gradeScore: 83,
+                            //         gradeName: '及格', // “及格” 等
+                            //         unit: 2.5, // 学分，URP 命名并未统一, credit 即 unit
+                            //         examTime: 'adadaww', // 测验时间
+                            //         notByReasonName: 'adawdwadawdwadwadawdwadwa', // 未通过原因
+                            //     };
+                            // }
+                        }
+                    }
 
                     courseList.push({
+                        // 成绩信息
+                        courseGradeInfo,
+
                         courseNumber,
                         coureSequenceNumber,
                         courseName: course.courseName,
@@ -77,8 +88,6 @@ export default class extends CrawlerBase {
                         unit: course.unit,
                         // 选课状态（ 选中 / 置入 ）
                         selectCourseStatusName: course.selectCourseStatusName,
-                        // 成绩信息
-                        courseGradeInfo
                     });
                 }
             }

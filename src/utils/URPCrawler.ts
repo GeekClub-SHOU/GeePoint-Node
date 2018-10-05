@@ -26,12 +26,16 @@ export class URPCrawler  {
     /**
      * cookie 返回内容是 "JSESSIONID={刚才获取的 JSESSIONID}" 去除了后面的"; path=/" 当 cookies 为空的时候返回 null
      */
-    private get cookie() {
+    get cookie() {
         if (this.cookies && this.cookies.length > 0) {
             return this.cookies.toString().split(';')[0];
         } else {
             return null;
         }
+    }
+
+    set cookie(str) {
+        this.cookies = [str];
     }
 
     /**
@@ -48,19 +52,21 @@ export class URPCrawler  {
      * 仅需要 login 一次，不需要重复 login
      */
     async login(username: string, password: string) {
-        const response = await this.agent.post('/login').use(this.prefix);
-        this.cookies = response.header['set-cookie'];
-        const loginResult =
-            await this.request(
+        return new Promise(async (resolve, reject) => {
+            const response = await this.agent.post('/login').use(this.prefix);
+            this.cookies = response.header['set-cookie'];
+            const loginResult =
+                await this.request(
                 `/j_spring_security_check?j_username=${username}&j_password=${password}&j_captcha1=error`
             );
-
-        // 返回的 html 中，如果存在 id 为 input_username 的元素 ( 登录时用户名的输入框 )，则说明用户名密码错误。
-        const $ = cheerio.load(loginResult.text);
-        if ($('#input_username').length > 0) {
-            return Promise.reject(new ClientError("URP 用户名或密码错误", 403));
-        }
-        return Promise.resolve(loginResult);
+            // 返回的 html 中，如果存在 id 为 input_username 的元素 ( 登录时用户名的输入框 )，则说明用户名密码错误。
+            const $ = cheerio.load(loginResult.text);
+            if ($('#input_username').length > 0) {
+                console.log(`/j_spring_security_check?j_username=${username}&j_password=${password}&j_captcha1=error`);
+                return reject(new ClientError("URP 用户名或密码错误", 403));
+            }
+            return resolve(loginResult);
+        });
     }
 
     /**

@@ -7,5 +7,8 @@ class CrawlerBase extends Base {
     get password() {
         return String(this.post('password'));
     }
+    get crawlerCookie() {
+        return String(this.post('crawlerCookie'));
+    }
 }
 export default CrawlerBase;
