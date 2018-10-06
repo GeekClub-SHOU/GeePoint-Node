@@ -45,7 +45,7 @@ export default class extends CrawlerBase {
                     // courseNumber 课程号
                     const courseNumber = codeSplit[0];
                     // coureSequenceNumber 课程序列号
-                    const coureSequenceNumber = codeSplit.length > 1 ? codeSplit[1] : null;
+                    const courseSequenceNumber = codeSplit.length > 1 ? codeSplit[1] : null;
 
                     // 遍历所有成绩，查看是否课程号匹配，如果匹配则返回成绩信息，不匹配则为 null
                     let courseGradeInfo = null;
@@ -78,7 +78,7 @@ export default class extends CrawlerBase {
                         courseGradeInfo,
 
                         courseNumber,
-                        coureSequenceNumber,
+                        courseSequenceNumber,
                         courseName: course.courseName,
                         teacherName: course.attendClassTeacher,
                         // 考试类型

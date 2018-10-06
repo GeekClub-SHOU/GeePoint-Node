@@ -166,7 +166,7 @@ pm2 startOrReload pm2.json
             notByReasonName: 'reason'
         },
      "courseNumber":"8409964",
-     "coureSequenceNumber":"18",
+     "courseSequenceNumber":"18",
      "courseName":"形势与政策（5）",
      "teacherName":"刘星安* ",
      "examTypeName":"考查",
