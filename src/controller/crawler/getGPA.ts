@@ -15,6 +15,8 @@ export default class extends CrawlerBase {
         } catch (e) {
             if ( e instanceof ClientError) {
                 return this.error(e.message, e.status);
+            } else if (e.message.indexOf('in JSON') >= 0) {
+                return this.error('您的登录已过期', 403);
             } else {
                 return this.error(e.message, 500);
             }

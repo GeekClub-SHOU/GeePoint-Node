@@ -1,5 +1,5 @@
 import * as request from 'superagent';
-import Config from '../config/config';
+const Config =  require('../config/config');
 import * as prefix from 'superagent-prefix';
 import * as cheerio from "cheerio";
 import ClientError from "./ClientError";
