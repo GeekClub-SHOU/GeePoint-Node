@@ -1,7 +1,7 @@
 {
   "name": "geepoint-node",
   "description": "GeePoint By GeeStack Inc.",
-  "version": "1.0.0",
+  "version": "18.10.11.1",
   "author": "corleoneyang <corleoneyang@geestack.com>",
   "scripts": {
     "start": "node development.js",

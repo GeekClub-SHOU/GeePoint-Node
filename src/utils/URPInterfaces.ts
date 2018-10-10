@@ -1,4 +1,4 @@
-export interface SemesterCurriculumResponse {
+export interface CrawlerSemesterCurriculumResponse {
     allUnits: number;
     dateList: {
         programPlanCode: string;
@@ -10,7 +10,7 @@ export interface SemesterCurriculumResponse {
     xkxx: any[];
 }
 
-export interface AllSemesterScoreResponseItem {
+export interface CrawlerAllSemesterScoreResponseItem {
     cjList: CourseGrade[];
     cjbh: string;
     cjlx: string;
@@ -53,8 +53,13 @@ export interface SelectCourse {
     examTypeName: string;
     flag: any;
     id: {
-        coureNumber: string;
-        coureSequenceNumber: string;
+
+        // urp 接口拼写错误
+        coureNumber?: string;
+        courseNumber?: string;
+        coureSequenceNumber?: string;
+        courseSequenceNumber?: string;
+
         executiveEducationPlanNumber: string;
         studentNumber: string;
     };
@@ -91,7 +96,11 @@ export interface CourseGrade {
     gradeScore: any;
     id: {
         executiveEducationPlanNumber: string,
-        courseNumber: string,
+        // urp 接口拼写错误
+        coureNumber?: string;
+        courseNumber?: string;
+        coureSequenceNumber?: string;
+        courseSequenceNumber?: string;
         startTime: string,
         studentId: string
     };
@@ -118,4 +127,30 @@ export interface CourseGrade {
     tscore: any;
     xkcsxdm: any;
     xkcsxmc: any;
+}
+
+export interface Course {
+    courseNumber: string;
+    courseSequenceNumber: string;
+    courseName: string;
+    academicYear?: string;
+    termName?: string;
+    teacherName: string;
+    // 考试类型
+    examTypeName: string;
+    // 选修 / 必修
+    coursePropertiesName: string;
+    // 学分
+    unit?: number | string;
+    // 选课状态（ 选中 / 置入 ）
+    selectCourseStatusName: string;
+    courseGradeInfo?: CourseGradeInfo;
+    gradePointScore?: number | string;
+}
+export interface CourseGradeInfo {
+    gradeScore?: number | string;
+    gradeName?: string; // “及格” 等
+    unit?: number | string; // 学分，URP 命名并未统一, credit 即 unit
+    examTime?: string; // 测验时间
+    notByReasonName?: string; // 未通过原因
 }

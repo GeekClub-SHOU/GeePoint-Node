@@ -2,7 +2,11 @@ import {URPCrawler} from '../../utils/URPCrawler';
 import * as cheerio from 'cheerio';
 import CrawlerBase from "./CrawlerBase";
 import ClientError from "../../utils/ClientError";
-import {AllSemesterScoreResponseItem, SelectCourse, SemesterCurriculumResponse} from "../../utils/URPInterfaces";
+import {
+    CrawlerAllSemesterScoreResponseItem,
+    SelectCourse,
+    CrawlerSemesterCurriculumResponse, Course, CourseGradeInfo
+} from "../../utils/URPInterfaces";
 export default class extends CrawlerBase {
     async indexAction() {
         try {
@@ -18,7 +22,7 @@ export default class extends CrawlerBase {
                     'GET'
                 );
 
-            const thisSemesterCurriculumResponse: SemesterCurriculumResponse =
+            const thisSemesterCurriculumResponse: CrawlerSemesterCurriculumResponse =
                 JSON.parse(thisSemesterCurriculumResponseTemp.text);
 
             /**
@@ -29,13 +33,13 @@ export default class extends CrawlerBase {
                     '/student/integratedQuery/scoreQuery/coursePropertyScores/callback',
                     'GET'
                 );
-            const allSemesterScoreResponse: AllSemesterScoreResponseItem[]
+            const allSemesterScoreResponse: CrawlerAllSemesterScoreResponseItem[]
                 = JSON.parse(allSemesterScoreResponseTemp.text);
             if (thisSemesterCurriculumResponse.xkxx.length === 0) {
                 return this.error("暂无本学期课程信息", 400);
             }
 
-            const courseList = [];
+            const courseList: Course[] = [];
             const courseObject = thisSemesterCurriculumResponse.xkxx[0];
             for (const code in courseObject) {
                 if (courseObject.hasOwnProperty(code)) {
@@ -48,7 +52,7 @@ export default class extends CrawlerBase {
                     const courseSequenceNumber = codeSplit.length > 1 ? codeSplit[1] : null;
 
                     // 遍历所有成绩，查看是否课程号匹配，如果匹配则返回成绩信息，不匹配则为 null
-                    let courseGradeInfo = null;
+                    let courseGradeInfo: CourseGradeInfo = null;
                     for (const allSemesterScoreResponseItem of allSemesterScoreResponse) {
                         for (const cj of allSemesterScoreResponseItem.cjList) {
                             if (cj.id.courseNumber === courseNumber) {
